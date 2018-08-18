@@ -1,0 +1,113 @@
+body {
+	background: #444;
+	color: #fff;
+	background: #444 url(../img/bg.bmp) no-repeat;
+	background-size: cover;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	height: 50px;
+}
+
+header .health {
+	height: 50px;
+	position: relative;
+	z-index: 1;
+	width: 49%;
+	background: red;
+}
+
+header .healthbar {
+	height: 50px;
+	width: 50%;
+	color: #fff;
+	background: green;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.hit_button {
+	margin-top: 100px;
+	background: #eee;
+	border: none;
+	padding: 1em 2em;
+	text-transform: uppercase;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+.creatures {
+	display: flex;
+	margin-top: 20px;
+}
+
+.box {
+	width: 150px;
+	height: 150px;
+	position: relative;
+	margin-right: 2px;
+	display: inline-block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.box .count {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#game {
+	display: none;
+}
+
+#heroes {
+	margin-top: 260px;
+}
+
+.info {
+	position: absolute;
+	top: 0;
+	background: url(../img/creature_modal.bmp) no-repeat;
+	height: 310px;
+	width: 300px;
+	border: 1px solid red;
+}
+
+.creature_pict {
+	width: 100px;
+	height: 130px;
+	background: url(../img/nec_creatures_bg.bmp) no-repeat;
+	position: absolute;
+	top: 47px;
+	left: 21px;
+}
+
+.creature_data {
+	width: 120px;
+	height: 130px;
+	top: 47px;
+	right: 25px;
+	position: absolute;
+	color: #ccc;
+	letter-spacing: .05em;
+	font-size: .93em;
+}
+
+.creature_data ul li {
+	display: flex;
+	justify-content: space-between;
+	min-height: 19px;
+}

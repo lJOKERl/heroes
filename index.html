@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="main">
+	
+
+<div id="heroes">
+	<div class="buy_skeletons" v-show="showBuy">
+		<div class="creature_pict" @click="showSkeletons">
+			<img src="img/sceleton.gif" alt="">
+		</div>
+		<div class="price">{{ sceletons.price }}</div>
+		<div class="access">{{ mainSceletons }}</div>
+		<div class="total">{{ total }}</div>
+
+		<div class="buttons">
+			<button class="take"></button>
+			<button class="all" @click="buyAll"></button>
+			<button class="cancel" @click="closeBuy"></button>
+		</div>
+	</div>
+
+	<div class="creatures" v-show="show">
+		<div class="info">
+
+			<div class="creature_pict">
+				<img src="img/sceleton.gif" alt="">
+				<div class="total">{{ mainSceletons }}</div>
+			</div>
+
+			<div class="creature_data">
+				<ul>
+					<li>
+						<span>Атака:</span>
+						<span>{{ sceletons.attack }}</span></li>
+					<li>
+						<span>Защита:</span>
+						<span>{{ sceletons.defence }}</span></li>
+					<li></li>
+					<li>
+						<span>Урон: </span>
+						<span>1-3</span></li>
+					<li>
+						<span>Здоровье:</span>
+						<span>{{ sceletons.health }}</span></li>
+					<li></li>
+					<li>
+						<span>Скорость:</span>
+						<span>{{ sceletons.speed }}</span></li>
+					<li>
+				</ul>
+			</div>
+
+			<div class="moral-box">
+				<img src="img/low_moral.jpg" width="47" alt="">
+				<img src="img/unsucces.jpg" width="47" alt="">
+			</div>
+
+			<button class="ok_btn" @click="closeModal"></button>
+		</div>
+	</div>
+
+	<div class="creatures_area">
+		<div class="box" id="sceletons">
+			<img src="img/sceleton.gif" alt=""><br>
+			<div class="count">{{ mainSceletons }}</div>
+		</div>
+
+		<div class="box">
+			<img src="img/vampire.gif" alt=""><br>
+			<div class="count">{{ mainVampires }}</div>
+		</div>
+
+		<div class="box">
+			<img src="img/lich.gif" alt=""><br>
+			<div class="count">{{ mainLiches }}</div>
+		</div>
+	</div>
+
+	<div class="tample" @click="buySkeletons">
+		<img src="img/tampel.png" alt="">
+	</div>
+
+	<button class="hit_button" @click="nextWeek">След. неделя</button>
+	<button class="hit_button" @click="onMusic">Включить музыку</button>
+	<button class="hit_button" @click="offMusic">Выключить музыку</button>
+	<audio src="music/Necropolis.mp3" v-if="music" autoplay="autoplay"></audio>
+
+	<div class="calstle_info">
+		
+	</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+	new Vue({
+		el: '#heroes',
+		data: {
+				sceletons: {
+					attack: 6,
+					defence: 8,
+					damage: [1, 2, 3],
+					health: 6,
+					speed: 4,
+					growth: 12,
+					price: 60
+				},
+				show: false,
+				showBuy: false,
+				total: 0,
+				music: false,
+				vampires: 6,
+				liches: 4,
+				mainSceletons: 12,
+				temperary: 0,
+				mainVampires: 0,
+				mainLiches: 0,
+		},
+		methods: {
+			nextWeek() {
+				this.mainSceletons += this.sceletons.growth;
+				this.mainVampires += this.vampires;
+				this.mainLiches += this.liches;
+			},
+
+			showSkeletons() {
+	    		this.show = true;
+	    	},
+	    	buySkeletons() {
+	    		this.showBuy = true;
+	    	},
+	    	closeModal() {
+	    		this.show = false;
+	    	},
+	    	closeBuy() {
+	    		this.showBuy = false;
+	    		this.total = 0;
+	    		this.mainSceletons = this.temperary;
+	    	},
+	    	offMusic() {
+	    		this.music = false;
+	    	},
+	    	onMusic() {
+	    		this.music = true;
+	    	},
+	    	buyAll() {
+	    		this.total = this.mainSceletons;
+	    		this.temperary = this.mainSceletons;
+	    		this.mainSceletons = 0;
+	    	}
+		}
+	});
+
+	
+</script>
+</body>
+</html>
