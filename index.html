@@ -7,6 +7,14 @@
 </head>
 <body>
 
+
+<div class="options_buttons" id="options">
+	<audio src="music/Necropolis.mp3" v-if="music" autoplay="autoplay"></audio>
+	<button class="hit_button" @click="nextWeek">След. неделя</button>
+	<button class="hit_button" @click="onMusic">Вкл. музыку</button>
+	<button class="hit_button" @click="offMusic">Вык. музыку</button>
+</div>
+
 <div id="main">
 	
 
@@ -20,10 +28,15 @@
 		<div class="total">{{ total }}</div>
 
 		<div class="buttons">
-			<button class="take"></button>
+			<button class="take" @click="takeCreatures"></button>
 			<button class="all" @click="buyAll"></button>
 			<button class="cancel" @click="closeBuy"></button>
 		</div>
+	</div>
+
+	<div class="buildings_modal" v-show="showBuild">
+		<div class="castle" @click="buildTemple"></div>
+		<div class="close_btn" @click="showBuild = !showBuild"></div>
 	</div>
 
 	<div class="creatures" v-show="show">
@@ -71,29 +84,21 @@
 			<img src="img/sceleton.gif" alt=""><br>
 			<div class="count">{{ mainSceletons }}</div>
 		</div>
-
-		<div class="box">
-			<img src="img/vampire.gif" alt=""><br>
-			<div class="count">{{ mainVampires }}</div>
-		</div>
-
-		<div class="box">
-			<img src="img/lich.gif" alt=""><br>
-			<div class="count">{{ mainLiches }}</div>
-		</div>
 	</div>
 
-	<div class="tample" @click="buySkeletons">
+	<div class="tample building" v-show="showTemple" @click="buySkeletons">
 		<img src="img/tampel.png" alt="">
 	</div>
 
-	<button class="hit_button" @click="nextWeek">След. неделя</button>
-	<button class="hit_button" @click="onMusic">Включить музыку</button>
-	<button class="hit_button" @click="offMusic">Выключить музыку</button>
-	<audio src="music/Necropolis.mp3" v-if="music" autoplay="autoplay"></audio>
+	<div class="prefecture building" @click="showBuildings">
+		<img src="img/prefecture.png" alt="">
+	</div>
 
 	<div class="calstle_info">
-		
+		<div class="skeleton" v-show="showArmy" @click="showSkeletons">
+			<img src="img/skeleton_icon.jpg" class="skeleton_icon" alt="">
+			<div class="creatures_counter">{{ armySceletons }}</div>
+		</div>
 	</div>
 
 </div>
@@ -103,7 +108,7 @@
 
 <script>
 
-	new Vue({
+	var vm1 = new Vue({
 		el: '#heroes',
 		data: {
 				sceletons: {
@@ -117,50 +122,91 @@
 				},
 				show: false,
 				showBuy: false,
+				showBuild: false,
+				showArmy: false,
+				showTemple: false,
 				total: 0,
-				music: false,
 				vampires: 6,
 				liches: 4,
 				mainSceletons: 12,
+				armySceletons: 0,
 				temperary: 0,
 				mainVampires: 0,
 				mainLiches: 0,
 		},
-		methods: {
-			nextWeek() {
-				this.mainSceletons += this.sceletons.growth;
-				this.mainVampires += this.vampires;
-				this.mainLiches += this.liches;
-			},
+		computed: {
 
+		},
+		methods: {
+			
 			showSkeletons() {
 	    		this.show = true;
 	    	},
+	    	showArmySkeletons() {
+	    		this.showArmy = true;
+	    	},
+	    	showBuildings() {
+	    		this.showBuild = true;
+	    	},
+	    	showMeTemple() {
+	    		this.showTemple = true;
+	    	},
 	    	buySkeletons() {
 	    		this.showBuy = true;
+	    	},
+	    	takeCreatures() {
+
+	    		if(this.total == 0) {
+	    			this.showBuy = false;
+	    			this.showArmy = false;
+	    			return;
+	    		}
+
+	    		this.showArmy = true;
+	    		this.armySceletons = this.temperary;
+	    		this.showBuy = false;
+	    		this.total = 0;
 	    	},
 	    	closeModal() {
 	    		this.show = false;
 	    	},
 	    	closeBuy() {
 	    		this.showBuy = false;
-	    		this.total = 0;
-	    		this.mainSceletons = this.temperary;
+	    		// this.total = 0;
+	    		// this.mainSceletons = this.temperary;
 	    	},
-	    	offMusic() {
-	    		this.music = false;
-	    	},
-	    	onMusic() {
-	    		this.music = true;
-	    	},
+	    	
 	    	buyAll() {
 	    		this.total = this.mainSceletons;
 	    		this.temperary = this.mainSceletons;
 	    		this.mainSceletons = 0;
-	    	}
+	    	},
+	    	buildTemple() {
+				this.showBuild = false;
+	    		setTimeout(() => this.showMeTemple(), 300);
+	    	},
 		}
 	});
 
+new Vue({
+	el: '#options',
+	data: {
+		music: false,
+	},
+	methods: {
+		offMusic() {
+    		this.music = false;
+    	},
+    	onMusic() {
+    		this.music = true;
+    	},
+    	nextWeek() {
+			vm1.mainSceletons += vm1.sceletons.growth;
+			vm1.mainVampires += vm1.vampires;
+			vm1.mainLiches += vm1.liches;
+		},
+	}
+});
 	
 </script>
 </body>
