@@ -305,7 +305,7 @@ ul {
 	width: 800px;
 	height: 600px;
 	position: absolute;
-	z-index: 2;
+	z-index: 3;
 	left: calc(50% - 400px);
 	top: 20px;
 	background: url(../img/buildings_window.jpg) no-repeat;
