@@ -79,9 +79,8 @@
 	</div>
 
 	<div class="creatures_area">
-		<div class="box" id="sceletons">
+		<div class="box" id="sceletons" v-show="showTemple">
 			<img src="img/sceleton.gif" alt=""><br>
-			<div class="count">{{ mainSceletons }}</div>
 		</div>
 	</div>
 
@@ -155,15 +154,13 @@
 	    	},
 	    	takeCreatures() {
 
-	    		if( this.mainSceletons == 0 && this.total == 0) {
+	    		if( this.total == 0) {
 	    			this.showBuy = false;
-	    			this.showArmy = false;
-	    			this.showArmy = true;
 	    			return false;
 	    		}
 
 	    		this.showArmy = true;
-	    		this.armySceletons += this.temperary;
+	    		this.armySceletons += this.total;
 	    		this.showBuy = false;
 	    		this.total = 0;
 	    	},
